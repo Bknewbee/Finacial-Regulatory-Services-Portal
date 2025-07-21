@@ -1,5 +1,4 @@
-import { getSignedS3Url } from "../../../lib/aws/s3";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { Document } from "../../../models/Document";
 import connectDB from "@/app/lib/mongodb";
 import { isValidObjectId } from "@/app/utils/validate";
@@ -7,20 +6,6 @@ import { parseFormData } from "@/app/utils/formDataParser";
 import { Doc } from "@/app/types/doc";
 
 type UpdateDocInput = Omit<Doc, "_id" | "file" | "savedPath">;
-
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const document = await Document.findOne({ _id: params.id }); // however you store it
-
-  if (!document || !document.key) {
-    return new NextResponse("Not found", { status: 404 });
-  }
-
-  const signedUrl = await getSignedS3Url(document.key);
-  return NextResponse.json({ ...document, signedUrl });
-}
 
 export async function DELETE(request: NextRequest) {
   await connectDB();
