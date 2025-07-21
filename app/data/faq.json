@@ -1,0 +1,62 @@
+[
+  {
+    "question": "What is the process for applying for a microlending license?",
+    "answer": "To apply for a microlending license, you must complete Form 1 and submit supporting documents as outlined in the Microlending Licensing Requirements document.",
+    "tags": ["microlending", "licensing", "form 1"],
+    "context": "microlending"
+  },
+  {
+    "question": "What documents are required for license renewal?",
+    "answer": "You must submit a completed renewal application form along with updated financial statements, compliance reports, and any changes in ownership or management.",
+    "tags": ["renewal", "requirements"],
+    "context": "general"
+  },
+  {
+    "question": "What is Form 3 used for?",
+    "answer": "Form 3 is used to register a branch of a licensed microlending entity. It must be submitted before the branch begins operation.",
+    "tags": ["form 3", "branch", "microlending"],
+    "context": "microlending"
+  },
+  {
+    "question": "What is the Non-Bank Lenders Act?",
+    "answer": "The Non-Bank Lenders Act, 2020 regulates lending entities that are not commercial banks, such as microlenders and pawnshops. It outlines operational, compliance, and reporting obligations.",
+    "tags": ["NBL Act", "regulation"],
+    "context": "legal"
+  },
+  {
+    "question": "What happens if a borrower settles early?",
+    "answer": "According to the Early Settlement Guidance Note, microlenders must allow early settlement without charging penalty fees, and must calculate interest only up to the settlement date.",
+    "tags": ["early settlement", "microlending"],
+    "context": "microlending"
+  },
+  {
+    "question": "How can I update the ownership structure of a licensed entity?",
+    "answer": "You must notify the regulatory authority in writing and submit updated shareholder information, board resolutions, and fit-and-proper declarations where required.",
+    "tags": ["ownership change", "compliance"],
+    "context": "general"
+  },
+  {
+    "question": "What is a fit-and-proper test?",
+    "answer": "A fit-and-proper test assesses the integrity, competence, and financial soundness of key persons such as directors, shareholders, or senior management of a financial institution.",
+    "tags": ["fit and proper", "compliance"],
+    "context": "general"
+  },
+  {
+    "question": "Do microlenders need to comply with the Financial Intelligence Act?",
+    "answer": "Yes. Microlenders must implement anti-money laundering measures in line with the Financial Intelligence Act, including customer due diligence, record-keeping, and suspicious transaction reporting.",
+    "tags": ["AML", "FIA", "compliance"],
+    "context": "microlending"
+  },
+  {
+    "question": "Can a microlender operate multiple branches?",
+    "answer": "Yes. However, each branch must be registered using Form 3 and adhere to the same compliance and reporting obligations as the main office.",
+    "tags": ["branches", "form 3", "microlending"],
+    "context": "microlending"
+  },
+  {
+    "question": "What forms are required to close or surrender a license?",
+    "answer": "To close a licensed entity, you must submit a license surrender form and clearance certificates for tax, employees, and outstanding obligations, as detailed in the licensing policy guidelines.",
+    "tags": ["closure", "surrender", "license"],
+    "context": "general"
+  }
+]
