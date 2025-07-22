@@ -27,17 +27,33 @@ export default function FAQChatbot() {
         body: JSON.stringify({ query }),
       });
 
-      const data = await res.json();
-      console.log(data?.response);
+      if (!res.body) throw new Error("No response body");
 
-      const botMsg = {
-        role: "assistant" as const,
-        content:
-          data?.response ||
-          "I'm sorry, I couldn't find an answer to your question.",
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      const botMsg = { role: "assistant" as const, content: "" };
+
+      setMessages((prev) => [...prev, botMsg]); // append bot msg (initially empty)
+
+      const updateLastMessage = (partial: string) => {
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = {
+            ...newMessages[newMessages.length - 1],
+            content: partial,
+          };
+          return newMessages;
+        });
       };
 
-      setMessages((prev) => [...prev, botMsg]);
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        updateLastMessage(buffer); // progressively update
+      }
     } catch (err) {
       console.error("Chatbot error:", err);
       setMessages((prev) => [

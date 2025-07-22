@@ -195,10 +195,53 @@ User question: ${query}
   const ollamaRes = await fetch("http://localhost:11434/api/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "llama3", prompt, stream: false }),
+    body: JSON.stringify({ model: "llama3", prompt, stream: true }),
   });
 
-  const data = await ollamaRes.json();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
 
-  return NextResponse.json({ response: data.response });
+  const stream = new ReadableStream({
+    async start(controller) {
+      const reader = ollamaRes.body?.getReader();
+      if (!reader) {
+        controller.close();
+        return;
+      }
+
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+
+        // Stream lines as they come
+        const parts = buffer.split("\n");
+        buffer = parts.pop()!; // save partial
+
+        for (const line of parts) {
+          if (line.trim() === "") continue;
+
+          try {
+            const parsed = JSON.parse(line);
+            const text = parsed.response || parsed.content;
+            if (text) controller.enqueue(encoder.encode(text));
+          } catch {
+            // ignore parse errors
+          }
+        }
+      }
+
+      controller.close();
+    },
+  });
+
+  return new NextResponse(stream, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+    },
+  });
 }
