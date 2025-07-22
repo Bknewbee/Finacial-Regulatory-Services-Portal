@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import FAQ from "@/app/models/FAQ";
 import dbConnect from "../../lib/mongodb";
+import { verifyAuth } from "@/app/lib/auth";
+import { cookies } from "next/headers";
 
 export async function GET() {
   const faqs = await FAQ.find().sort({ createdAt: -1 });
@@ -14,6 +16,13 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const token = (await cookies()).get("token")?.value;
+  const user = verifyAuth(token);
+  if (!user)
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 },
+    );
   await dbConnect();
 
   const body = await request.json();

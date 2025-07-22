@@ -1,5 +1,8 @@
+import { verifyAuth } from "@/app/lib/auth";
+import { cookies } from "next/headers";
+
 import connectDB from "@/app/lib/mongodb";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { isValidObjectId } from "@/app/utils/validate";
 import { ChecklistStep } from "@/app/models/ChecklistStep";
 import { Checkliststep } from "@/app/types/checklistStep";
@@ -7,6 +10,15 @@ import { Checkliststep } from "@/app/types/checklistStep";
 type UpdateEventInput = Omit<Checkliststep, "_id">;
 
 export async function DELETE(request: NextRequest) {
+  const token = (await cookies()).get("token")?.value;
+  const user = verifyAuth(token);
+
+  if (!user)
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 },
+    );
+
   await connectDB();
 
   const url = new URL(request.url);
@@ -55,6 +67,14 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function PUT(request: Request) {
+  const token = (await cookies()).get("token")?.value;
+  const user = verifyAuth(token);
+
+  if (!user)
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 },
+    );
   await connectDB();
   const url = new URL(request.url);
   const id = url.pathname.split("/").pop();

@@ -197,8 +197,8 @@ User question: ${query}
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ model: "llama3", prompt, stream: false }),
   });
-  console.log(ollamaRes);
 
   const data = await ollamaRes.json();
+
   return NextResponse.json({ response: data.response });
 }

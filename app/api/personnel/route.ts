@@ -1,6 +1,8 @@
 import dbConnect from "../../lib/mongodb";
 import Personnel from "../../models/Personnel";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { verifyAuth } from "@/app/lib/auth";
 
 export async function GET() {
   await dbConnect();
@@ -10,6 +12,13 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const token = (await cookies()).get("token")?.value;
+  const user = verifyAuth(token);
+  if (!user)
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 },
+    );
   await dbConnect();
 
   const body = await request.json();

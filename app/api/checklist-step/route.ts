@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ChecklistStep } from "../../models/ChecklistStep";
-import connectDB from "../../lib/mongodb"; // assumes you're using a connectDB helper
+import connectDB from "../../lib/mongodb";
+import { verifyAuth } from "@/app/lib/auth";
+import { cookies } from "next/headers";
 
 //GET checklist steps
 export async function GET(req: NextRequest) {
@@ -26,6 +28,13 @@ export async function GET(req: NextRequest) {
 
 //POST checklist steps
 export async function POST(req: NextRequest) {
+  const token = (await cookies()).get("token")?.value;
+  const user = verifyAuth(token);
+  if (!user)
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 },
+    );
   await connectDB();
   const data = await req.json();
   const newStep = new ChecklistStep({

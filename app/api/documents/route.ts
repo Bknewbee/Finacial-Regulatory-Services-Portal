@@ -5,6 +5,8 @@ import { IncomingForm, Fields, Files } from "formidable";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "stream";
 import { IncomingMessage } from "http";
+import { verifyAuth } from "@/app/lib/auth";
+import { cookies } from "next/headers";
 import fs from "fs";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +48,14 @@ async function parseFormData(
 }
 
 export async function POST(req: NextRequest) {
+  const token = (await cookies()).get("token")?.value;
+  const user = verifyAuth(token);
+  if (!user)
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 },
+    );
+
   try {
     await connectDB();
     const { fields, files } = await parseFormData(req);

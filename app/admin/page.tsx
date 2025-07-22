@@ -1,6 +1,7 @@
 "use client";
 
-import { useAuth } from "../context/context-context";
+//import { useAuth } from "../context/context-context";
+import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -13,29 +14,26 @@ import CheckilstItemDashboard from "../components/dashboards/CheckilstItemDashbo
 import FAQDashboard from "../components/dashboards/FAQDashboard";
 
 export default function AdminDashboard() {
-  const { isAdmin, logout } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  //const { isAdmin, logout } = useAuth();
   const router = useRouter();
   const [activePage, setActivePage] = useState("document");
 
   useEffect(() => {
-    if (!isAdmin) {
+    if (!loading && !isAuthenticated) {
       router.push("/");
     }
-  }, [isAdmin, router]);
+  }, [loading, isAuthenticated, router]);
 
-  return (
+  if (loading) return <p>Loading...</p>;
+  if (!isAuthenticated) return <p>Redirecting...</p>;
+  return loading || !isAuthenticated ? (
+    <div>Loading</div>
+  ) : (
     <div className="mx-auto max-w-2xl py-8">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl font-bold">Admin Dashboard</h2>
-        <button
-          onClick={() => {
-            logout();
-            router.push("/");
-          }}
-          className="rounded bg-gray-800 px-4 py-1 text-white"
-        >
-          Logout
-        </button>
       </div>
 
       <div className="mb-4 flex space-x-2">

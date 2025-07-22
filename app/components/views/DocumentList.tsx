@@ -88,13 +88,13 @@ export default function DocumentList({ docs, refresh, onEdit }: Props) {
                   onEdit(doc);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="rounded-2xl bg-red-600 px-3 py-1"
+                className="me-2 mb-1 rounded-lg border border-gray-200 bg-white px-5 py-1.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 focus:outline-none"
               >
                 Edit
               </button>
               <button
                 onClick={(e: React.MouseEvent) => deleteItem(doc._id, e)}
-                className="rounded-2xl bg-red-600 px-3 py-1"
+                className="me-2 mb-1 rounded-lg border border-red-200 bg-red-600 px-5 py-1.5 text-sm font-medium text-gray-900 hover:border-red-600 hover:bg-red-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 focus:outline-none"
               >
                 Delete
               </button>

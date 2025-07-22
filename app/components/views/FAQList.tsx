@@ -40,7 +40,10 @@ export default function FAQList({ faqs, refresh, onEdit }: Props) {
       <h2 className="mb-3 text-lg font-semibold">Personnel Directory</h2>
       <div className="space-y-4">
         {faqs.map((faq) => (
-          <div key={faq._id} className="relative rounded border p-4 shadow">
+          <div
+            key={faq._id}
+            className="relative rounded border p-4 pb-10 shadow"
+          >
             <p>
               <strong>Question:</strong> {faq.question}
             </p>
@@ -60,13 +63,13 @@ export default function FAQList({ faqs, refresh, onEdit }: Props) {
                   onEdit(faq);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="rounded-2xl bg-red-600 px-3 py-1"
+                className="me-2 mb-1 rounded-lg border border-gray-200 bg-white px-5 py-1.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 focus:outline-none"
               >
                 Edit
               </button>
               <button
                 onClick={(e: React.MouseEvent) => deleteItem(faq._id, e)}
-                className="rounded-2xl bg-red-600 px-3 py-1"
+                className="me-2 mb-1 rounded-lg border border-red-200 bg-red-600 px-5 py-1.5 text-sm font-medium text-gray-900 hover:border-red-600 hover:bg-red-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 focus:outline-none"
               >
                 Delete
               </button>

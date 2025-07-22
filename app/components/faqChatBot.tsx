@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { formatPlainTextToJSX } from "../utils/formatPlainTextToJSX";
 
 export default function FAQChatbot() {
   const [query, setQuery] = useState("");
@@ -27,6 +28,8 @@ export default function FAQChatbot() {
       });
 
       const data = await res.json();
+      console.log(data?.response);
+
       const botMsg = {
         role: "assistant" as const,
         content:
@@ -64,13 +67,13 @@ export default function FAQChatbot() {
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`w-fit max-w-[90%] rounded-lg p-2 whitespace-pre-wrap ${
+            className={`w-fit max-w-[90%] rounded-lg p-2 text-left whitespace-pre-wrap ${
               msg.role === "user"
                 ? "ml-auto bg-blue-100 text-right"
                 : "bg-gray-100"
             }`}
           >
-            {msg.content}
+            {formatPlainTextToJSX(msg.content)}
           </div>
         ))}
         <div ref={bottomRef} />
