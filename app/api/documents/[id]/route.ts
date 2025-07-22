@@ -4,7 +4,7 @@ import connectDB from "@/app/lib/mongodb";
 import { isValidObjectId } from "@/app/utils/validate";
 import { parseFormData } from "@/app/utils/formDataParser";
 import { Doc } from "@/app/types/doc";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 
 type UpdateDocInput = Omit<Doc, "_id" | "file" | "savedPath">;

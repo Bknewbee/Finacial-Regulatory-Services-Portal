@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ChecklistStep } from "../../models/ChecklistStep";
 import connectDB from "../../lib/mongodb";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 
 //GET checklist steps

@@ -1,7 +1,7 @@
 import dbConnect from "../../lib/mongodb";
 import Event from "../../models/Event";
 import { NextResponse } from "next/server";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 
 export async function GET() {

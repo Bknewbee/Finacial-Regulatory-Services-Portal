@@ -2,7 +2,7 @@ import connectDB from "@/app/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { isValidObjectId } from "@/app/utils/validate";
 import Event from "@/app/models/Event";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 
 type UpdateEventInput = Omit<Event, "_id" | "file" | "savedPath">;

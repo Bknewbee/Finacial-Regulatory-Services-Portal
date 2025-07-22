@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { isValidObjectId } from "@/app/utils/validate";
 import Personnel from "@/app/models/Personnel";
 import { Person } from "@/app/types/personnel";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 
 type UpdateEventInput = Omit<Person, "_id">;

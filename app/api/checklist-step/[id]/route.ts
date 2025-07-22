@@ -1,4 +1,4 @@
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 
 import connectDB from "@/app/lib/mongodb";

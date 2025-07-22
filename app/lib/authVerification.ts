@@ -1,4 +1,3 @@
-// app/lib/auth.ts
 import jwt from "jsonwebtoken";
 
 export function verifyAuth(token: string | undefined) {

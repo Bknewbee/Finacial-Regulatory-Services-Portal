@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { refreshUser } = useAuth();
 
   const router = useRouter();
 
@@ -21,6 +23,7 @@ export default function LoginForm() {
     const data = await res.json();
     if (res.ok) {
       console.log("Login success", data);
+      await refreshUser();
       router.push("/admin");
     } else {
       alert(data.error);

@@ -20,6 +20,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Wrong password" }, { status: 401 });
   }
 
+  //create token
   const token = jwt.sign(
     { _id: user._id, email: user.email, name: user.name },
     JWT_SECRET,
@@ -30,15 +31,16 @@ export async function POST(req: Request) {
 
   // Create response
   const response = NextResponse.json({
+    success: true,
     message: "Login successful",
-    user: { email: user.email, name: user.name },
+    // user: { email: user.email, name: user.name },
   });
 
-  // Set cookie on response object
+  // Set cookie token on response object
   response.cookies.set("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: false,
+    sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });

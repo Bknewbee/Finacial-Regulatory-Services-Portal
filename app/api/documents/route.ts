@@ -5,7 +5,7 @@ import { IncomingForm, Fields, Files } from "formidable";
 import { NextRequest, NextResponse } from "next/server";
 import { Readable } from "stream";
 import { IncomingMessage } from "http";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 import { cookies } from "next/headers";
 import fs from "fs";
 

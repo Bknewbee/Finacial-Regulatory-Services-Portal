@@ -1,10 +1,8 @@
 "use client";
 
-//import { useAuth } from "../context/context-context";
-import { useAuth } from "../context/AuthContext";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 
 import DocumentDashboard from "../components/dashboards/DocumentDashboard";
@@ -13,27 +11,30 @@ import PersonnelDashboard from "../components/dashboards/PersonnelDashboard";
 import CheckilstItemDashboard from "../components/dashboards/CheckilstItemDashboard";
 import FAQDashboard from "../components/dashboards/FAQDashboard";
 
-export default function AdminDashboard() {
-  const { isAuthenticated, loading } = useAuth();
+import { useAuth } from "../context/AuthContext";
 
+export const dynamic = "force-dynamic";
+
+export default function AdminDashboard() {
   //const { isAdmin, logout } = useAuth();
   const router = useRouter();
+  const { isAuthenticated, loading } = useAuth();
   const [activePage, setActivePage] = useState("document");
 
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      router.push("/");
+    if (!isAuthenticated) {
+      router.push("/login");
     }
-  }, [loading, isAuthenticated, router]);
+  }, [isAuthenticated, router]);
 
   if (loading) return <p>Loading...</p>;
   if (!isAuthenticated) return <p>Redirecting...</p>;
-  return loading || !isAuthenticated ? (
-    <div>Loading</div>
-  ) : (
+
+  return (
     <div className="mx-auto max-w-2xl py-8">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-bold">Admin Dashboard</h2>
+        <h2 className="text-xl font-bold">Admin Dashboard </h2>
+        {/* {user?.email} */}
       </div>
 
       <div className="mb-4 flex space-x-2">

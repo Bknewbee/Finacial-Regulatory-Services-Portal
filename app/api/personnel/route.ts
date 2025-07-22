@@ -2,7 +2,7 @@ import dbConnect from "../../lib/mongodb";
 import Personnel from "../../models/Personnel";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { verifyAuth } from "@/app/lib/auth";
+import { verifyAuth } from "@/app/lib/authVerification";
 
 export async function GET() {
   await dbConnect();
