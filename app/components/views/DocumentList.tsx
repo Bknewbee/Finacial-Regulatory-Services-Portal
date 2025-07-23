@@ -48,7 +48,10 @@ export default function DocumentList({ docs, refresh, onEdit }: Props) {
       <h2 className="mb-3 text-lg font-semibold">Uploaded Documents</h2>
       <div className="space-y-4">
         {docs?.map((doc) => (
-          <div key={doc._id} className="relative rounded border p-4 shadow">
+          <div
+            key={doc._id}
+            className="relative rounded border p-4 pb-10 shadow"
+          >
             <p>
               <strong>Title:</strong> {doc.title}
             </p>

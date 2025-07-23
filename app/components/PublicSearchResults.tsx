@@ -19,6 +19,20 @@ export default function PublicSearchResults({ query }: { query: string }) {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<string>("all");
 
+  const getDownloadUrl = () => {
+    const first = results.find((r) => r.typeS === "checklist step");
+    if (!first) return "/api/checklist";
+
+    console.log(first);
+
+    const base = "/api/checklist";
+    if (first.license_type?.toLowerCase() === "other") {
+      return `${base}?custom_license_type=${encodeURIComponent(first.license_type)}`;
+    } else {
+      return `${base}?license_type=${encodeURIComponent(first.license_type || "")}`;
+    }
+  };
+
   const getResults = async (q: string) => {
     const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
     const data = await res.json();
@@ -61,6 +75,18 @@ export default function PublicSearchResults({ query }: { query: string }) {
         <p>No results found.</p>
       ) : (
         <div className="space-y-4">
+          <div className="flex flex-col">
+            {filter === "checklist step" && results.length > 0 && (
+              <a
+                href={getDownloadUrl()}
+                className="mb-4 inline-block w-[230px] self-end-safe rounded bg-green-600 px-3 py-1 text-center text-white shadow hover:bg-green-700"
+                download
+              >
+                Download Checklist PDF
+              </a>
+            )}
+          </div>
+
           {filteredResults.map((res, i) => (
             <div key={i} className="rounded border p-4 shadow">
               <p>

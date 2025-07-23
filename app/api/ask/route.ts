@@ -108,7 +108,7 @@ export async function POST(req: Request) {
         },
       },
       { $sort: { score: -1 } },
-      { $limit: 10 },
+      { $limit: 5 },
     ]),
     Document.aggregate([
       {
@@ -151,7 +151,7 @@ export async function POST(req: Request) {
         $sort: { score: -1 },
       },
       {
-        $limit: 10,
+        $limit: 5,
       },
     ]),
   ]);

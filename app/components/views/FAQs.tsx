@@ -5,7 +5,7 @@ import FAQChatbot from "../faqChatBot";
 function FAQs() {
   const [isOpen, setIsOpen] = useState(false);
   return isOpen ? (
-    <div className="fixed right-6 bottom-6 z-50 w-[450px]">
+    <div className="fixed right-2 bottom-3 z-50 w-[450px]">
       <div className="relative rounded-lg bg-white p-2 text-center shadow">
         <button
           onClick={() => setIsOpen(!isOpen)}

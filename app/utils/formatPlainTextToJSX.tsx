@@ -35,7 +35,11 @@ export function formatPlainTextToJSX(text: string): JSX.Element {
 
   // Flush any remaining list at the end
   if (listItems.length > 0) {
-    elements.push(<ol className="list-decimal space-y-1 pl-5">{listItems}</ol>);
+    elements.push(
+      <ol key={`list-${listItems}`} className="list-decimal space-y-1 pl-5">
+        {listItems}
+      </ol>,
+    );
   }
 
   return <>{elements}</>;

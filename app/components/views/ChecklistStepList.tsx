@@ -1,6 +1,5 @@
 "use client";
 import { Checkliststep } from "@/app/types/checklistStep";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -15,7 +14,6 @@ export default function ChecklistStepList({
   onEdit,
 }: Props) {
   const url = "/api/checklist-step";
-  const [isLoading, setIsLoading] = useState(false);
 
   const deleteItem = async (id: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -25,20 +23,16 @@ export default function ChecklistStepList({
     };
     if (window.confirm("are you sure you want to delete this document?")) {
       try {
-        setIsLoading(true);
         const res = await fetch(`${url}/${id}`, options);
         const data = await res.json();
 
         if (data.success) {
           toast.success(data.message);
           refresh();
-          setIsLoading(false);
         } else {
           toast.error(data.message);
-          setIsLoading(false);
         }
       } catch (err) {
-        setIsLoading(false);
         toast.error("Deletion failed");
         console.log("Error deleting checklist step", err);
       }
@@ -96,7 +90,6 @@ export default function ChecklistStepList({
               >
                 Edit
               </button>
-              <span> {isLoading ? <p>Loading</p> : null}</span>
               <button
                 onClick={(e: React.MouseEvent) => deleteItem(step._id, e)}
                 className="me-2 mb-1 rounded-lg border border-red-200 bg-red-600 px-5 py-1.5 text-sm font-medium text-gray-900 hover:border-red-600 hover:bg-red-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 focus:outline-none"

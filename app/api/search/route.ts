@@ -115,17 +115,50 @@ export async function GET(req: Request) {
     ]),
     ChecklistStep.aggregate([
       {
-        $match: {
-          $or: [
-            { license_type: { $regex: query, $options: "i" } },
-            { custom_license_type: { $regex: query, $options: "i" } },
-            { step: { $regex: query, $options: "i" } },
-            { reference_section: { $regex: query, $options: "i" } },
-          ],
+        $search: {
+          index: "default", // or your custom index name
+          compound: {
+            should: [
+              {
+                text: {
+                  query,
+                  path: "license_type",
+                  score: { boost: { value: 6 } },
+                },
+              },
+              {
+                text: {
+                  query,
+                  path: "custom_license_type",
+                  score: { boost: { value: 5 } },
+                },
+              },
+              {
+                text: {
+                  query,
+                  path: "step",
+                  score: { boost: { value: 8 } },
+                },
+              },
+              {
+                text: {
+                  query,
+                  path: "reference_section",
+                  score: { boost: { value: 4 } },
+                },
+              },
+            ],
+            minimumShouldMatch: 1,
+          },
         },
       },
-
-      { $limit: 10 },
+      {
+        $addFields: {
+          score: { $meta: "searchScore" },
+        },
+      },
+      { $sort: { score: -1 } },
+      { $limit: 30 },
     ]),
   ]);
 
