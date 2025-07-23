@@ -14,7 +14,7 @@ export default function LandingPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">Regulatory Portal</h1>
+      <h1 className="mb-6 text-3xl font-bold">Financial Regulatory Portal</h1>
 
       <form onSubmit={handleSearchSubmit} className="mb-8 flex gap-2">
         <input
