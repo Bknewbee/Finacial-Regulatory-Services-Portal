@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Financial Regulatory Services Portal
+
+A regulatory intelligence platform designed to simplify compliance, licensing, and document management for financial institutions in Botswana. Built to support startups, investors, and regulators through intelligent automation and accessible legal infrastructure.
+
+## Key Features
+
+- **Document Upload & Management** — Acts, forms, directives, policies
+- **Checklist Generator** — Automatically compile regulatory steps from context
+- **AI Chatbot (Ollama)** — Ask questions using natural language and get context-aware answers
+- **Smart Search** — MongoDB Atlas Search across documents, tags, metadata
+- **Role-Based Access** — Admin vs. User dashboards
+- **Events & News** — Keep up with regulatory updates
+
+## Tech Stack
+
+| Layer      | Tools/Frameworks                            |
+| ---------- | ------------------------------------------- |
+| Frontend   | Next.js, TypeScript, Tailwind CSS, Flowbite |
+| Backend    | Node.js, Express-style API routes           |
+| AI         | Ollama (Local LLM), LangChain               |
+| Database   | MongoDB Atlas                               |
+| Storage    | AWS S3 (secure document storage)            |
+| Auth       | Passport.js (JWT strategy)                  |
+| Deployment | Hostinger VPS                               |
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/Bknewbee/Finacial-Regulatory-Services-Portal.git
+cd Finacial-Regulatory-Services-Portal
+npm install
+```
+
+Create a `.env.local` file from the example and add your credentials:
+
+```env
+MONGODB_URI=your_mongodb_url
+JWT_SECRET=your_jwt_secret
+AWS_ACCESS_KEY_ID=your_key
+AWS_SECRET_ACCESS_KEY=your_secret
+OLLAMA_API_URL=http://localhost:11434
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+/app            → Pages and route logic
+/components     → Reusable UI components
+/lib            → Utility functions (e.g., s3, mongodb, ollama)
+/api            → Server routes (file uploads, search, auth)
+```
 
-## Learn More
+## Roadmap
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Intelligent document search
+- [x] Checklist generation
+- [x] AI Chatbot
+- [x] PDF checklist export
+- [ ] Regulatory audit trail
+- [ ] Auto Document field generation
+- [ ] Auto Checklist generation based on selected documents
+- [ ] Multi-lingual support
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+PRs welcome! To contribute:
 
-## Deploy on Vercel
+```bash
+git checkout -b feature/your-feature
+git commit -m "feat: describe feature"
+git push origin feature/your-feature
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open a pull request.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+
+MIT © 2025 Ezer Bhuka — Nest 009
